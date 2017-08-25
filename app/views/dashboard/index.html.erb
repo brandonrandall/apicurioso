@@ -1,21 +1,20 @@
 <%= image_tag(current_user.image) %>
-
+<% # NO HASHES IN THE VIEW!!! (follower[:login] is bad) %>
 <ul class="followers">
   <h1> <%= @followers.count %> followers</h1>
   <% @followers.each do |follower| %>
-  <%# binding.pry %>
   <li class="follower">
-    <%= follower[:login] %>
-    <% # NO HASHES IN THE VIEW!!! (follower[:login] is bad) %>
+    <%= follower %>
   </li>
   <% end %>
-
+<% @repos.each do |repo| %>
+  <%= link_to repo[:name], repo_commits_path(repo[:id]) %><br>
+<% end %>
 <ul class="following">
   <h1>Following <%= @following.count %></h1>
   <% @following.each do |followed| %>
   <li class="following">
-    <%= followed[:login] %>
-    <% # NO HASHES IN THE VIEW!!! (follower[:login] is bad) %>
+    <%= followed %>
   </li>
   <% end %>
 </ul>

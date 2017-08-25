@@ -7,9 +7,11 @@ class GithubService
   def followers(access_token)
     response = conn.get("/user/followers?access_token=#{access_token}")
     followers = JSON.parse(response.body, symbolize_names: true)
-    # followers.each do |follower|
-    #   follower_login = follower[:login]
-    # end
+    followers.map do |follower|
+      # login = follower[:login]
+      follower[:login]
+      # url => follower[:html_url]}
+    end
   end
 
   def self.get_followers(followers)
@@ -19,6 +21,7 @@ class GithubService
   def following(access_token)
     response = conn.get("/user/following?access_token=#{access_token}")
     following = JSON.parse(response.body, symbolize_names: true)
+    following.map { |followed| followed[:login]}
   end
 
   def self.get_following(following)
@@ -34,10 +37,23 @@ class GithubService
     following.map { |followed| followed[:login]}
   end
 
-  def commits
-    response = conn.get"/repos/:owner/:repo/commits"
+  # def repo
+  #   /users/brandonrandall/repos
+  # end
+
+  def get_commits(repo_id, access_token)
+    binding.pry
+    response = conn.get("/repos/user/#{repo_id}/commits?access_token=#{access_token}")
     commits = JSON.parse(response.body, symbolize_names: true)
   end
+
+  def repos(access_token)
+    response = conn.get("/user/repos?access_token=#{access_token}")
+    # https://api.github.com/users/brandonrandall/repos
+    # commits_response = conn.get"/repos/user/#{repo}/commits"
+    repos = JSON.parse(response.body, symbolize_names: true)
+  end
+
 
   private
 
