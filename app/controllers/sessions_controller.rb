@@ -1,17 +1,20 @@
 class SessionsController < ApplicationController
-  def create
+  def github_create
     if request.env["omniauth.auth"]["provider"] == "github"
       if user = User.from_github_omniauth(request.env["omniauth.auth"])
         session[:user_id] = user.id
       end
     redirect_to github_dashboard_path
-    else #if request.env["omniauth.auth"]["provider"] == "facebook"
+    end
+  end
+
+  def facebook_create
+    if request.env["omniauth.auth"]["provider"] == "facebook"
       if user = User.from_facebook_omniauth(request.env["omniauth.auth"])
         session[:user_id] = user.id
       end
-    redirect_to dashboard_path
+    redirect_to facebook_dashboard_path
     end
-    binding.pry
   end
 
   def destroy
