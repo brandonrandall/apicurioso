@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "/github_dashboard", to: "github_dashboard#index"
   get "/auth/github", as: :github_login
   get "/auth/facebook", as: :facebook_login
-  get "/auth/:provider/callback", to: "sessions#create"
+  get "/auth/:provider/callback", to: "sessions#create", via: [:get, :post]
   delete "/logout", to: "sessions#destroy"
 
   resources :repos, only: [:show] do

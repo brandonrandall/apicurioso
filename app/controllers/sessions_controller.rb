@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
       end
     redirect_to github_dashboard_path
-    else #if request.env["omniauth.auth"]["provider"] == "facabook"
+    else #if request.env["omniauth.auth"]["provider"] == "facebook"
       if user = User.from_facebook_omniauth(request.env["omniauth.auth"])
         session[:user_id] = user.id
       end
