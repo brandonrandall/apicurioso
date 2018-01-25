@@ -23,7 +23,11 @@
             </div>
         </ul>
         <% if current_user %>
-          hello, <%= current_user.nickname %>.<br>
+          <% if current_user.provider == "facebook" %>
+          Hello, <%= current_user.name %>.
+          <% else %>
+          Hello, <%= current_user.nickname %>.<br>
+          <% end %>
           <%= link_to "Logout", logout_path, method: :delete %><br><br>
         <% else %>
           <%= link_to "Sign in with Github", github_login_path %>

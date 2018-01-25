@@ -1,1 +1,5 @@
-Hi!
+<link rel='stylesheet' href='facebook.css'/>
+  <h1>Hi <%= current_user.name %>!</h1>
+  <div class="facebook-image">
+    <%= image_tag(current_user.image) %>
+  </div>
