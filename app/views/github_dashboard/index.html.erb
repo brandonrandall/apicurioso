@@ -1,5 +1,4 @@
 <%= image_tag(current_user.image) %>
-<% # NO HASHES IN THE VIEW!!! (follower[:login] is bad) %>
 <ul class="followers">
   <h1> <%= @followers.count %> followers</h1>
   <% @followers.each do |follower| %>

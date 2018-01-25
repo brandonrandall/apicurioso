@@ -1,12 +1,13 @@
 class User < ApplicationRecord
   def self.from_github_omniauth(auth_info)
-    where(uid: auth_info[:uid]).first_or_create do |user|
+    user = where(uid: auth_info[:uid]).first_or_create do |user|
       user.uid            = auth_info.uid
       user.nickname       = auth_info.info.nickname
-      user.oauth_token    = auth_info.credentials.token
       user.image          = auth_info.extra.raw_info.avatar_url
-      user.save!
     end
+    user.oauth_token    = auth_info.credentials.token
+    user.save!
+    user
   end
 
   def self.from_facebook_omniauth(auth)
